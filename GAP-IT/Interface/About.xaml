@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="GAP_IT.Interface.About"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             Height="310" Width="300
+             ">
+    <Grid>
+        <Border BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="310" Margin="0,0,0,0" VerticalAlignment="Top" Width="300" Background="#FF3F51B5" CornerRadius="14,14,14,14">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="15" ShadowDepth="5"/>
+            </Border.Effect>
+        </Border>
+        <Label Content="About" HorizontalAlignment="Left" Margin="13,3,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="48" Foreground="White"/>
+        <Label x:Name="versionLabel" Content="GAP-IT version: " HorizontalAlignment="Left" Margin="13,70,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="14" Foreground="White"/>
+        <Label Content="Created by Ryan Bijkerk" HorizontalAlignment="Left" Margin="13,99,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="14" Foreground="White"/>
+        <Label Content="MVP in Microsoft App-V" HorizontalAlignment="Left" Margin="13,119,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="14" Foreground="White"/>
+        <Label Content="Contact:" HorizontalAlignment="Left" Margin="13,145,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="22" FontWeight="Bold" Foreground="White"/>
+        <Label Content="Email: " HorizontalAlignment="Left" Margin="13,179,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="14" Foreground="White"/>
+        <Label HorizontalAlignment="Left" Margin="51,179,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="14" Foreground="White">
+            <Hyperlink NavigateUri="mailto:ryan@logitblog.com" RequestNavigate="Hyperlink_RequestNavigate" Foreground="White">
+                ryan@logitblog.com
+            </Hyperlink>
+        </Label>
+        <Label Content="Twitter: " HorizontalAlignment="Left" Margin="13,208,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="14" Foreground="White"/>
+        <Label HorizontalAlignment="Left" Margin="59,208,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="14" Foreground="White">
+            <Hyperlink NavigateUri="http://twitter.com/logitblog" RequestNavigate="Hyperlink_RequestNavigate" Foreground="White">
+                @Logitblog
+            </Hyperlink>
+        </Label>
+        <Label Content="LinkedIn:" HorizontalAlignment="Left" Margin="13,242,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="14" Foreground="White"/>
+        <Label HorizontalAlignment="Left" Margin="68,242,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="14" Foreground="White">
+            <Hyperlink NavigateUri="http://linkedin.com/in/ryanbijkerk" RequestNavigate="Hyperlink_RequestNavigate" Foreground="White">
+                Ryan Bijkerk
+            </Hyperlink>
+        </Label>
+        <Label Content="Website:" HorizontalAlignment="Left" Margin="13,271,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="14" Foreground="White"/>
+        <Label HorizontalAlignment="Left" Margin="66,271,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="14" Foreground="White">
+            <Hyperlink NavigateUri="http://www.logitblog.com" RequestNavigate="Hyperlink_RequestNavigate" Foreground="White">
+                Logit Blog
+            </Hyperlink>
+        </Label>
+        <Button Content="X" HorizontalAlignment="Left" Margin="267,0,0,0" VerticalAlignment="Top" Width="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Segoe UI Light" FontSize="18" Height="24" Click="Button_Click"/>
+    </Grid>
+</UserControl>

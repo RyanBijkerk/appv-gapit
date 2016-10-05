@@ -1,0 +1,80 @@
+﻿<Window x:Name="mainWindow" x:Class="GAP_IT.Interface.Main"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:metroChart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
+        xmlns:interface="clr-namespace:GAP_IT.Interface"
+        Title="GAP-IT by Ryan Bijkerk" Height="786" Width="1024" MinHeight="700" MinWidth="410" Icon="/GAP-IT;component/icon.ico">
+    <Grid>
+        <Border BorderBrush="#FF3F51B5" BorderThickness="1" HorizontalAlignment="Left" Width="400" Background="#FF3F51B5">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="15" ShadowDepth="5"/>
+            </Border.Effect>
+        </Border>
+        <Image HorizontalAlignment="Left" Height="140" VerticalAlignment="Top" Width="390" Margin="10,10,0,0" Source="Assets/logo-white.png"/>
+        <Label Content="Settings" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top" FontSize="48" FontFamily="Segoe UI Light" Foreground="White"/>
+        <Label Content="Select a date to get historical data on publishing times:" HorizontalAlignment="Left" Margin="10,366,0,0" VerticalAlignment="Top" Width="390" Foreground="White" FontFamily="Segoe UI Light" FontSize="14"/>
+        <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Margin="15,401,0,0" VerticalAlignment="Top" Width="170" FontFamily="Segoe UI Light" FontSize="14"/>
+        <Label Content="Resolve the package name from the management server:" HorizontalAlignment="Left" Margin="10,447,0,0" VerticalAlignment="Top" Width="390" Foreground="White" FontFamily="Segoe UI Light" FontSize="14"/>
+        <RadioButton x:Name="radioYes" Content="Yes" HorizontalAlignment="Left" Margin="15,482,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="True" FontFamily="Segoe UI Light" FontSize="14" Cursor="" Checked="radioYes_Checked" GroupName="packageName"/>
+        <RadioButton x:Name="radioNo" Content="No" HorizontalAlignment="Left" Margin="75,482,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="False" FontFamily="Segoe UI Light" FontSize="14" Cursor="" Checked="radioNo_Checked" GroupName="packageName"/>
+        <Label Content="App-V management server address:" HorizontalAlignment="Left" Margin="10,526,0,0" VerticalAlignment="Top" Width="390" Foreground="White" FontFamily="Segoe UI Light" FontSize="14"/>
+        <ComboBox x:Name="protocol" HorizontalAlignment="Left" Margin="15,560,0,0" VerticalAlignment="Top" Width="85" BorderBrush="White" SelectedIndex="0" FontFamily="Segoe UI Light" FontSize="14" Foreground="Black" IsReadOnly="True">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+            <ComboBoxItem Content="http://"/>
+            <ComboBoxItem Content="https://"/>
+        </ComboBox>
+        <TextBox x:Name="serverTextBox" HorizontalAlignment="Left" Margin="105,560,0,0" TextWrapping="Wrap" Text="AppV-Server" VerticalAlignment="Top" Height="25" Width="215" Background="White" FontFamily="Segoe UI Light" FontSize="14" PreviewMouseDown="serverTextBox_MouseDown"/>
+        <TextBox x:Name="portTextBox" HorizontalAlignment="Left" Margin="330,560,0,0" TextWrapping="Wrap" Text="8080" VerticalAlignment="Top" Height="25" Width="60" Background="White" FontFamily="Segoe UI Light" FontSize="14" PreviewTextInput="port_PreviewTextInput" TextChanged="port_TextChanged"/>
+        <Label Content=":" HorizontalAlignment="Left" Margin="319,558,0,0" VerticalAlignment="Top" Width="42" Foreground="White" FontFamily="Segoe UI Light" FontSize="14"/>
+        <Button x:Name="collectData" Content="Collect data" HorizontalAlignment="Left" Margin="300,0,0,10" VerticalAlignment="Bottom" Width="90" Height="26" FontSize="14" FontFamily="Segoe UI Light" Background="White" BorderBrush="White" Click="collectData_Click"/>
+        <DockPanel x:Name="chartDockPanel" Height="Auto" LastChildFill="False" Margin="400,0,0,0">
+            <metroChart:StackedColumnChart x:Name="stackedColumnChart"                               
+                ChartTitle="App-V 5.0 Publishing Times"
+                ChartSubTitle="Publishing times per package in milliseconds"                  
+                Palette="{Binding Path=SelectedPalette.Value}"
+                FontSize="12"
+                IsRowColumnSwitched="{Binding Path=IsRowColumnSwitched}"
+                ToolTipFormat="{Binding Path=ToolTipFormat}"
+                Foreground="{Binding Path=Foreground}" 
+                Background="{Binding Path=Background}"                 
+                SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}"
+                SeriesSource="{Binding Path=Series}" 
+                Margin="0,0,0,0" Width="Auto" Height="Auto" HorizontalAlignment="Left">
+                <metroChart:StackedColumnChart.SeriesTemplate>
+                    <DataTemplate>
+                        <metroChart:ChartSeries
+			                SeriesTitle="{Binding Path=SeriesTitle}"
+                            DisplayMember="Category"
+                            ValueMember="Number"
+                            ItemsSource="{Binding Path=Items}" />
+                    </DataTemplate>
+                </metroChart:StackedColumnChart.SeriesTemplate>
+            </metroChart:StackedColumnChart>
+        </DockPanel>
+        <Border x:Name="errorBorder" BorderBrush="#FFB71C1C" BorderThickness="1" HorizontalAlignment="Left" Height="44" Margin="151,0,0,0" VerticalAlignment="Top" Width="544" Background="#FFB71C1C" CornerRadius="0,0,20,20" IsEnabled="False">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="20" ShadowDepth="10"/>
+            </Border.Effect>
+            <Label x:Name="errorLabel" Content="Error" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" Foreground="White" IsEnabled="False"/>
+        </Border>
+        <interface:LoadingSpinner x:Name="loadingSpinner" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="717,408,275,323" />
+        <Label x:Name="loadingLabel" Content="Loading" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="642,401,277,291" FontFamily="Segoe UI Light" FontSize="20" Height="63" Width="97"/>
+        <Button Content="" HorizontalAlignment="Left" Margin="24,0,0,10" VerticalAlignment="Bottom" Width="28" BorderBrush="{x:Null}" Foreground="{x:Null}" Height="26" Click="info_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="Assets/ic_info_white_24dp.png"/>
+            </Button.Background>
+        </Button>
+        <DockPanel x:Name="dockAbout" Width="611" Height="745" LastChildFill="True" Margin="405,10,0,0"/>
+        <Label x:Name="labelRemoteConfig" Content="Collect results from a remote machine:" HorizontalAlignment="Left" Margin="10,215,0,0" VerticalAlignment="Top" Width="390" Foreground="White" FontFamily="Segoe UI Light" FontSize="14"/>
+        <RadioButton x:Name="radioYes_machine" Content="Yes" HorizontalAlignment="Left" Margin="15,250,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Segoe UI Light" FontSize="14" Cursor="" Checked="radioYes_Machine_Checked" GroupName="machine"/>
+        <RadioButton x:Name="radioNo_machine" Content="No" HorizontalAlignment="Left" Margin="75,250,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="True" FontFamily="Segoe UI Light" FontSize="14" Cursor="" Checked="radioNo_Machine_Checked" GroupName="machine"/>
+        <Label x:Name="labelRemoteComputer" Content="Remote computer:" HorizontalAlignment="Left" Margin="10,284,0,0" VerticalAlignment="Top" Width="390" Foreground="White" FontFamily="Segoe UI Light" FontSize="14"/>
+        <TextBox x:Name="remoteComputer" HorizontalAlignment="Left" Margin="15,318,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="215" Background="White" FontFamily="Segoe UI Light" FontSize="14" PreviewMouseDown="serverTextBox_MouseDown" IsEnabled="False"/>
+        <Button x:Name="exportButton" Content="Export data" HorizontalAlignment="Left" Margin="105,0,0,10" VerticalAlignment="Bottom" Width="90" Height="26" FontSize="14" FontFamily="Segoe UI Light" Background="White" BorderBrush="White" IsEnabled="False" Click="exportButton_Click"/>
+    </Grid>
+</Window>
